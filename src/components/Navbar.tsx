@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Menu, X, Smartphone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from './ThemeToggle';
 
 type NavLink = {
   text: string;
@@ -37,11 +38,12 @@ const Navbar: React.FC = () => {
               <a 
                 key={link.text}
                 href={link.href}
-                className="text-gray-700 hover:text-mobile-primary transition-colors duration-200"
+                className="text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
               >
                 {link.text}
               </a>
             ))}
+            <ThemeToggle />
             <Button 
               asChild
               className="bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
@@ -51,13 +53,16 @@ const Navbar: React.FC = () => {
           </div>
           
           {/* Mobile Navigation Toggle */}
-          <button 
-            className="md:hidden text-gray-500 hover:text-gray-700 focus:outline-none"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button 
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
         
         {/* Mobile Navigation Menu */}
@@ -67,7 +72,7 @@ const Navbar: React.FC = () => {
               <a
                 key={link.text}
                 href={link.href}
-                className="block text-gray-700 hover:text-mobile-primary transition-colors duration-200"
+                className="block text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.text}
