@@ -1,24 +1,69 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, MapPin, Phone, Send, Linkedin, Github, Twitter } from 'lucide-react';
+import { Mail, MapPin, Phone, Send, Linkedin, Github, Twitter, Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    toast({
-      title: "Message sent",
-      description: "Thanks for reaching out! I'll get back to you soon.",
-    });
-    
-    // Reset form
-    (e.target as HTMLFormElement).reset();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const submission = {
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
+      subject: formData.get('subject') as string,
+      message: formData.get('message') as string,
+    };
+
+    try {
+      // Store the submission in Supabase
+      const { error: dbError } = await supabase
+        .from('contact_submissions')
+        .insert([submission]);
+
+      if (dbError) {
+        throw new Error(`Database error: ${dbError.message}`);
+      }
+
+      // Send email notifications via edge function
+      const { error: emailError } = await supabase.functions.invoke('send-contact-notification', {
+        body: submission,
+      });
+
+      if (emailError) {
+        console.error('Email error:', emailError);
+        // Don't throw here - we still want to show success if the submission was saved
+        toast({
+          title: "Message submitted successfully!",
+          description: "Your message has been saved. Email notifications may be delayed.",
+        });
+      } else {
+        toast({
+          title: "Message sent successfully!",
+          description: "Thanks for reaching out! I'll get back to you soon.",
+        });
+      }
+      
+      // Reset form
+      (e.target as HTMLFormElement).reset();
+    } catch (error: any) {
+      console.error('Submission error:', error);
+      toast({
+        title: "Error sending message",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -40,8 +85,8 @@ const Contact: React.FC = () => {
                 <Mail className="h-5 w-5 text-mobile-primary mt-1 mr-3" />
                 <div>
                   <h4 className="font-semibold">Email</h4>
-                  <a href="mailto:soumik@example.com" className="text-gray-600 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200">
-                    soumik@example.com
+                  <a href="mailto:hello.soumikbhatt@gmail.com" className="text-gray-600 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200">
+                    hello.soumikbhatt@gmail.com
                   </a>
                 </div>
               </div>
@@ -88,19 +133,20 @@ const Contact: React.FC = () => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium mb-1">
-                  Name
+                  Name *
                 </label>
                 <Input 
                   id="name" 
                   name="name" 
                   placeholder="Your name" 
                   required 
+                  disabled={isSubmitting}
                 />
               </div>
               
               <div>
                 <label htmlFor="email" className="block text-sm font-medium mb-1">
-                  Email
+                  Email *
                 </label>
                 <Input 
                   id="email" 
@@ -108,24 +154,26 @@ const Contact: React.FC = () => {
                   type="email" 
                   placeholder="Your email" 
                   required 
+                  disabled={isSubmitting}
                 />
               </div>
               
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium mb-1">
-                  Subject
+                  Subject *
                 </label>
                 <Input 
                   id="subject" 
                   name="subject" 
                   placeholder="Subject" 
                   required 
+                  disabled={isSubmitting}
                 />
               </div>
               
               <div>
                 <label htmlFor="message" className="block text-sm font-medium mb-1">
-                  Message
+                  Message *
                 </label>
                 <Textarea 
                   id="message" 
@@ -133,14 +181,25 @@ const Contact: React.FC = () => {
                   placeholder="Your message" 
                   rows={5} 
                   required 
+                  disabled={isSubmitting}
                 />
               </div>
               
               <Button 
                 type="submit" 
                 className="w-full bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
+                disabled={isSubmitting}
               >
-                <Send className="mr-2 h-4 w-4" /> Send Message
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="mr-2 h-4 w-4" /> Send Message
+                  </>
+                )}
               </Button>
             </form>
           </div>
