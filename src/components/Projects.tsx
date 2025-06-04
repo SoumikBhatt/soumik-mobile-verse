@@ -17,36 +17,35 @@ interface ProjectProps {
 
 const projects: ProjectProps[] = [
   {
-    title: "Fitness Tracker Pro",
-    description: "A comprehensive fitness tracking app built with Flutter. Features include workout plans, progress tracking, and social sharing capabilities.",
-    image: "/placeholder.svg",
-    technologies: ["Flutter", "Firebase", "Provider", "REST API"],
-    playStoreLink: "#",
-    appStoreLink: "#",
-    githubLink: "#"
+    title: "PrimePay",
+    description: "A comprehensive internet banking app built with Flutter. Features include Fund Transfer,Bills Pay, MFS, Vat Payment, Cheque Managemnt, Report Management, etc.",
+    image: "/primepay.jpeg",
+    technologies: ["Flutter", "Riverpod", "Clean Architecture","REST API"],
+    // playStoreLink: "#",
+    // appStoreLink: "#",
+    // githubLink: "#"
   },
   {
-    title: "Quick Notes",
-    description: "Minimalist note-taking app with cloud sync, markdown support, and collaborative editing features. Built with native Android using Kotlin.",
-    image: "/placeholder.svg",
-    technologies: ["Kotlin", "MVVM", "Room", "Coroutines"],
-    playStoreLink: "#",
-    githubLink: "#"
+    title: "Sentra",
+    description: "Push-to-talk app with Realtime voice communication, Voice interactive AI, One to One message, Group message, Voice call & Video call features. Built with native Android using Java.",
+    image: "/sentra.webp",
+    technologies: ["Android", "Java", "MVVM", "Room", "RxJava","gRPC","MQTT","WebRTC"],
+    playStoreLink: "https://play.google.com/store/apps/details?id=com.nybsys.sentra.sitex",
+    // githubLink: "#"
   },
   {
-    title: "Urban Navigator",
-    description: "Public transportation app with real-time updates, route planning, and offline maps. Implemented using Flutter with clean architecture.",
-    image: "/placeholder.svg",
-    technologies: ["Flutter", "BLoC", "Google Maps API", "Firebase"],
-    playStoreLink: "#",
-    appStoreLink: "#"
+    title: "Bdjobs",
+    description: "Job Portal application with live interview, resume dashboard, my jobs, video resume, etc. Implemented using native Android using Kotlin with clean architecture.",
+    image: "/bdjobs.png",
+    technologies: ["Android", "Koltin", "MVVM", "Coroutine", "Google Maps API", "Firebase"],
+    playStoreLink: "https://play.google.com/store/apps/details?id=com.bdjobs.app"
   },
   {
-    title: "Meal Planner",
-    description: "Recipe and meal planning app with shopping list generation, dietary preferences, and nutrition tracking.",
-    image: "/placeholder.svg",
-    technologies: ["Java", "Android SDK", "SQLite", "Retrofit"],
-    playStoreLink: "#"
+    title: "Patient Aid",
+    description: "Health tech application with over 1M users built with native Android using Kotlin. Includes features like medicine directory, doctor directory, hospital directory, medicine taking alarm. Maintained offline first strategy.",
+    image: "/patientAid.png",
+    technologies: ["Android", "Kotlin", "SQLite", "Retrofit","MVVM","Work Manager"],
+    playStoreLink: "https://play.google.com/store/apps/details?id=com.itmedicus.patientaid"
   }
 ];
 

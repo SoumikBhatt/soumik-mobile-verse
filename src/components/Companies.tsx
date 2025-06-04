@@ -14,25 +14,32 @@ interface CompanyProps {
 
 const companies: CompanyProps[] = [
   {
-    name: "Tech Innovators Inc.",
-    role: "Sr. Mobile Developer",
-    period: "2021 - Present",
-    description: "Lead developer for the company's flagship mobile applications. Implemented clean architecture patterns and improved app performance by 40%. Managed a team of 3 developers.",
-    technologies: ["Flutter", "Kotlin", "Firebase", "REST APIs", "GraphQL"]
+    name: "Brain Station 23 PLC",
+    role: "Senior Software Engineer I",
+    period: "Aug 2024 - Present",
+    description: "Contributed to the development of native & cross-platform mobile applications. Worked on debugging and enhancing existing features. Participated in daily stand-ups and sprint planning.",
+    technologies: ["Android","Flutter", "Kotlin", "Firebase", "REST APIs"]
   },
   {
-    name: "Digital Solutions Ltd.",
-    role: "Mobile Developer",
-    period: "2018 - 2021",
-    description: "Developed and maintained multiple Android applications with over 500K downloads. Implemented Material Design principles and collaborated with UX designers to create intuitive user interfaces.",
-    technologies: ["Java", "Kotlin", "Android SDK", "Room", "Retrofit"]
+    name: "Nybsys",
+    role: "Software Engineer -> Sr. Software Engineer",
+    period: "Feb 2022 - Aug 2024",
+    description: "Lead development for the company's flagship mobile applications. Implemented clean architecture patterns and improved app performance by 40%. Managed a team of 3 developers.",
+    technologies: ["Java", "Kotlin", "Android SDK", "Room", "Retrofit","MQTT","WebRTC", "GraphQL"]
   },
   {
-    name: "MobileFirst Startup",
-    role: "Junior Developer",
-    period: "2016 - 2018",
-    description: "Contributed to the development of cross-platform mobile applications. Worked on debugging and enhancing existing features. Participated in daily stand-ups and sprint planning.",
-    technologies: ["Flutter", "Dart", "Android", "iOS", "Firebase"]
+    name: "Bdjobs.com Ltd.",
+    role: "Mobile Application Developer",
+    period: "March 2021 - Feb 2022",
+    description: "Lead development for the company's flagship mobile applications. Implemented clean architecture patterns and improved app performance by 40%. Managed a team of 3 developers.",
+    technologies: ["Kotlin", "Android", "Firebase","WebRTC","Google AdSDK"]
+  },
+  {
+    name: "ITmedicus",
+    role: "Software Developer",
+    period: "Aug 2019 - Feb 2021",
+    description: "Developed multiple high-impact health tech native and cross-platform applications, taking full ownership of project delivery and success.",
+    technologies: ["Kotlin", "Android", "Firebase","REST APIs"]
   }
 ];
 

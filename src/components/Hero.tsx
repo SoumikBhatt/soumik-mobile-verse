@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
               <span className="block mt-2 text-mobile-primary">Mobile Developer</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
-              Sr. Software Engineer specializing in Android and Flutter. 
+              Software Engineer specializing in Android and Flutter. 
               Crafting beautiful and functional mobile experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">

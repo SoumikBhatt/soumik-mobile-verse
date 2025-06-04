@@ -90,7 +90,7 @@ const About: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <div className="flex justify-between mb-1">
-                  <span className="font-medium">UI/UX Design</span>
+                  <span className="font-medium">SQL</span>
                   <span>85%</span>
                 </div>
                 <div className="h-2 bg-gray-200 rounded-full">
@@ -99,7 +99,7 @@ const About: React.FC = () => {
               </div>
               <div className="flex flex-col">
                 <div className="flex justify-between mb-1">
-                  <span className="font-medium">React Native</span>
+                  <span className="font-medium">Git</span>
                   <span>80%</span>
                 </div>
                 <div className="h-2 bg-gray-200 rounded-full">

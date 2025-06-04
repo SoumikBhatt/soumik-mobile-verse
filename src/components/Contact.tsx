@@ -96,7 +96,7 @@ const Contact: React.FC = () => {
                 <div>
                   <h4 className="font-semibold">Phone</h4>
                   <a href="tel:+1234567890" className="text-gray-600 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200">
-                    +1 (234) 567-890
+                    +88 01755244111
                   </a>
                 </div>
               </div>
@@ -106,7 +106,7 @@ const Contact: React.FC = () => {
                 <div>
                   <h4 className="font-semibold">Location</h4>
                   <p className="text-gray-600 dark:text-gray-300">
-                    San Francisco, California
+                    Dhaka, Bangladesh
                   </p>
                 </div>
               </div>
@@ -115,13 +115,13 @@ const Contact: React.FC = () => {
             <div className="mt-10">
               <h3 className="text-xl font-bold mb-4">Connect With Me</h3>
               <div className="flex space-x-4">
-                <a href="#" className="h-10 w-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-mobile-primary hover:text-white transition-colors duration-200">
+                <a href="https://www.linkedin.com/in/soumikcse/" className="h-10 w-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-mobile-primary hover:text-white transition-colors duration-200">
                   <Linkedin className="h-5 w-5" />
                 </a>
-                <a href="#" className="h-10 w-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-mobile-primary hover:text-white transition-colors duration-200">
+                <a href="https://github.com/SoumikBhatt" className="h-10 w-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-mobile-primary hover:text-white transition-colors duration-200">
                   <Github className="h-5 w-5" />
                 </a>
-                <a href="#" className="h-10 w-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-mobile-primary hover:text-white transition-colors duration-200">
+                <a href="https://x.com/soumikbhatt95" className="h-10 w-10 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center hover:bg-mobile-primary hover:text-white transition-colors duration-200">
                   <Twitter className="h-5 w-5" />
                 </a>
               </div>
