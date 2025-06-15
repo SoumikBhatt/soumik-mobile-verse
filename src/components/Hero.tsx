@@ -15,18 +15,26 @@ const Hero: React.FC = () => {
               <span className="block mt-2 text-mobile-primary">Mobile Developer</span>
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-lg mx-auto md:mx-0">
-              Software Engineer specializing in Android and Flutter. 
+              Software Engineer specializing in Android and Flutter.
               Crafting beautiful and functional mobile experiences.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-              <Button 
-                className="bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
-                size="lg"
-              >
-                <Download className="mr-2 h-4 w-4" /> Download CV
-              </Button>
-              <Button 
-                variant="outline" 
+              <a href='/resume.pdf'
+                target='_blank'
+                rel='noopener noreferrer'>
+
+                <Button
+                  className="bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
+                  size="lg"
+                // onClick={() => window.open("https://docs.google.com/document/d/1dOv7tvcxEa6infARBo96PxrKpu9Egs5CX7140kvPYws", "_blank")}
+                >
+                  <Download className="mr-2 h-4 w-4" /> Download CV
+                </Button>
+
+              </a>
+
+              <Button
+                variant="outline"
                 size="lg"
                 asChild
               >
@@ -36,13 +44,13 @@ const Hero: React.FC = () => {
               </Button>
             </div>
           </div>
-          
+
           <div className="flex justify-center md:justify-end">
             <div className="relative">
               <div className="animate-float">
                 <MobilePhoneMockup />
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-mobile-primary/10 -z-10"></div>
               <div className="absolute -bottom-5 -right-5 w-32 h-32 rounded-full bg-mobile-secondary/10 -z-10"></div>
@@ -50,7 +58,7 @@ const Hero: React.FC = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
         <a href="#about" aria-label="Scroll down">
           <ArrowDown className="h-6 w-6 text-gray-400" />
