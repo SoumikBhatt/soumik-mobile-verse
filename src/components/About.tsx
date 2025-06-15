@@ -53,7 +53,7 @@ const About: React.FC = () => {
         <div className="text-center mb-12">
           <h2 className="section-heading">About Me</h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">
-            I'm a Senior Software Engineer specializing in Android and Flutter development with a passion for crafting exceptional mobile experiences.
+            I'm a Software Engineer specializing in Android and Flutter development with a passion for crafting exceptional mobile experiences.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ const About: React.FC = () => {
           <div>
             <h3 className="text-2xl font-bold mb-4">Who I Am</h3>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              I'm Soumik Bhattacharjee, a Senior Software Engineer with expertise in mobile application development. With a strong foundation in Android and Flutter, I specialize in creating responsive, user-friendly mobile applications that deliver exceptional user experiences.
+              I'm Soumik Bhattacharjee, a Software Engineer with expertise in mobile application development. With a strong foundation in Android and Flutter, I specialize in creating responsive, user-friendly mobile applications that deliver exceptional user experiences.
             </p>
             <p className="text-gray-600 dark:text-gray-300">
               My approach combines technical excellence with creative problem-solving, ensuring that every app I build is not only functional but also visually appealing and intuitive to use.
