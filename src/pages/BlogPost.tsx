@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { parseMarkdownContent } from '@/utils/markdownParser';
 
 interface BlogPost {
   id: string;
@@ -152,7 +152,7 @@ const BlogPost = () => {
           {/* Content */}
           <div 
             className="prose prose-lg dark:prose-invert max-w-none"
-            dangerouslySetInnerHTML={{ __html: blogPost.content.replace(/\n/g, '<br>') }}
+            dangerouslySetInnerHTML={{ __html: parseMarkdownContent(blogPost.content) }}
           />
         </div>
       </article>
