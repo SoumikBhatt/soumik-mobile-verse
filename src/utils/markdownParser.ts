@@ -9,6 +9,8 @@ export const parseMarkdownContent = (content: string): string => {
       return `<h2 class="text-2xl font-semibold mb-4 mt-8 text-gray-900 dark:text-gray-100">${line.substring(3)}</h2>`;
     } else if (line.startsWith('# ')) {
       return `<h1 class="text-3xl font-bold mb-6 text-gray-900 dark:text-gray-100">${line.substring(2)}</h1>`;
+    } else if (line.startsWith('### ')) {
+      return `<h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">${line.substring(4)}</h3>`;
     }
     
     // Handle bullet points
@@ -52,5 +54,11 @@ export const parseMarkdownContent = (content: string): string => {
 };
 
 const parseInlineCode = (text: string): string => {
-  return text.replace(/`([^`]+)`/g, '<code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">$1</code>');
+  // Handle inline code first to avoid conflicts
+  let parsed = text.replace(/`([^`]+)`/g, '<code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm">$1</code>');
+
+  // Handle bold text with ****
+  parsed = parsed.replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-gray-100">$1</strong>');
+
+  return parsed;
 };
