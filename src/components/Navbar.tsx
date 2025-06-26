@@ -4,6 +4,8 @@ import { Menu, X, Smartphone } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from './ThemeToggle';
 import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 
 type NavLink = {
   text: string;
@@ -15,12 +17,15 @@ const navLinks: NavLink[] = [
   { text: "About", href: "#about" },
   { text: "Companies", href: "#companies" },
   { text: "Projects", href: "#projects" },
-  { text: "Blog", href: "/blog", isExternal: true },
+  { text: "Blog", href: "#blog" },
   { text: "Contact", href: "#contact" },
 ];
 
+
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -29,7 +34,7 @@ const Navbar: React.FC = () => {
   const renderNavLink = (link: NavLink) => {
     if (link.isExternal) {
       return (
-        <Link 
+        <Link
           to={link.href}
           className="text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
         >
@@ -37,10 +42,26 @@ const Navbar: React.FC = () => {
         </Link>
       );
     }
-    
+
+    const handleInternalLinkClick = (e: React.MouseEvent) => {
+      e.preventDefault();
+
+      if (location.pathname !== '/') {
+        navigate(`/${link.href}`);
+      } else {
+        const target = document.querySelector(link.href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    };
+
+    // const handleInternalLinkClick = useInternalLinkHandler();
+
     return (
-      <a 
+      <a
         href={link.href}
+        onClick={handleInternalLinkClick}
         className="text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
       >
         {link.text}
@@ -56,7 +77,7 @@ const Navbar: React.FC = () => {
             <Smartphone className="h-6 w-6 text-mobile-primary" />
             <span className="font-bold text-lg">Soumik Bhattacharjee</span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             {navLinks.map((link) => (
@@ -65,18 +86,18 @@ const Navbar: React.FC = () => {
               </div>
             ))}
             <ThemeToggle />
-            <Button 
+            <Button
               asChild
               className="bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
             >
               <a href="#contact">Hire Me</a>
             </Button>
           </div>
-          
+
           {/* Mobile Navigation Toggle */}
           <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
-            <button 
+            <button
               className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
               onClick={toggleMenu}
               aria-label="Toggle menu"
@@ -85,7 +106,7 @@ const Navbar: React.FC = () => {
             </button>
           </div>
         </div>
-        
+
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-2 py-4 space-y-3">
@@ -94,7 +115,7 @@ const Navbar: React.FC = () => {
                 {renderNavLink(link)}
               </div>
             ))}
-            <Button 
+            <Button
               asChild
               className="w-full mt-2 bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
             >

@@ -1,9 +1,29 @@
 
 import React from 'react';
 import { Smartphone } from 'lucide-react';
+import { useLocation, useNavigate } from "react-router-dom";
+
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  // Handler for footer nav links
+  const handleNavClick = (e: React.MouseEvent, hash: string) => {
+    e.preventDefault();
+
+    if (location.pathname !== "/") {
+      // If not on homepage, navigate to homepage with hash
+      navigate(`/${hash}`);
+    } else {
+      // If on homepage, just scroll smoothly to section
+      const el = document.querySelector(hash);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
   
   return (
     <footer className="bg-gray-900 text-white pt-12 pb-8">
@@ -13,36 +33,33 @@ const Footer: React.FC = () => {
             <Smartphone className="h-6 w-6 text-mobile-primary" />
             <span className="font-bold text-lg">Soumik Bhattacharjee</span>
           </div>
-          
+
           <nav>
             <ul className="flex flex-wrap justify-center gap-x-6 gap-y-2">
-              <li>
-                <a href="#about" className="text-gray-300 hover:text-mobile-primary transition-colors duration-200">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#companies" className="text-gray-300 hover:text-mobile-primary transition-colors duration-200">
-                  Companies
-                </a>
-              </li>
-              <li>
-                <a href="#projects" className="text-gray-300 hover:text-mobile-primary transition-colors duration-200">
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="text-gray-300 hover:text-mobile-primary transition-colors duration-200">
-                  Contact
-                </a>
-              </li>
+              {[
+                { text: "About", hash: "#about" },
+                { text: "Companies", hash: "#companies" },
+                { text: "Projects", hash: "#projects" },
+                { text: "Blog", hash: "#blog" },
+                { text: "Contact", hash: "#contact" },
+              ].map(({ text, hash }) => (
+                <li key={text}>
+                  <a
+                    href={hash}
+                    onClick={(e) => handleNavClick(e, hash)}
+                    className="text-gray-300 hover:text-mobile-primary transition-colors duration-200"
+                  >
+                    {text}
+                  </a>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
-        
+
         <div className="border-t border-gray-800 pt-8">
           <p className="text-center text-gray-400">
-            &copy; {currentYear} Soumik Bhattacharjee. All rights reserved. 
+            &copy; {currentYear} Soumik Bhattacharjee. All rights reserved.
           </p>
           <p className="text-center text-gray-500 text-sm mt-2">
             Sr. Software Engineer (Android, Flutter)
