@@ -21,6 +21,24 @@ const navLinks: NavLink[] = [
   { text: "Contact", href: "#contact" },
 ];
 
+const handleInternalLinkClick = (
+  e: React.MouseEvent,
+  href: string,
+  location: ReturnType<typeof useLocation>,
+  navigate: ReturnType<typeof useNavigate>
+) => {
+  e.preventDefault();
+
+  if (location.pathname !== '/') {
+    navigate(`/${href}`);
+  } else {
+    const target = document.querySelector(href);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+};
+
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,25 +61,10 @@ const Navbar: React.FC = () => {
       );
     }
 
-    const handleInternalLinkClick = (e: React.MouseEvent) => {
-      e.preventDefault();
-
-      if (location.pathname !== '/') {
-        navigate(`/${link.href}`);
-      } else {
-        const target = document.querySelector(link.href);
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    };
-
-    // const handleInternalLinkClick = useInternalLinkHandler();
-
     return (
       <a
         href={link.href}
-        onClick={handleInternalLinkClick}
+        onClick={(e) => handleInternalLinkClick(e, link.href, location, navigate)}
         className="text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
       >
         {link.text}
@@ -90,7 +93,7 @@ const Navbar: React.FC = () => {
               asChild
               className="bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
             >
-              <a href="#contact">Hire Me</a>
+              <a href="#contact" onClick={(e) => handleInternalLinkClick(e, "#contact", location, navigate)}>Hire Me</a>
             </Button>
           </div>
 
@@ -119,7 +122,10 @@ const Navbar: React.FC = () => {
               asChild
               className="w-full mt-2 bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
             >
-              <a href="#contact" onClick={() => setIsMenuOpen(false)}>Hire Me</a>
+              <a href="#contact" onClick={(e) => {
+                handleInternalLinkClick(e,"#contact",location,navigate)
+                setIsMenuOpen(false)
+              }}>Hire Me</a>
             </Button>
           </div>
         )}
