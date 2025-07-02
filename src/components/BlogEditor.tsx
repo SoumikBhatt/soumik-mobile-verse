@@ -9,14 +9,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { 
-  Form, 
-  FormControl, 
-  FormField, 
-  FormItem, 
-  FormLabel, 
-  FormMessage 
-} from '@/components/ui/form';
 import { useToast } from '@/hooks/use-toast';
 import { parseMarkdownContent } from '@/utils/markdownParser';
 import { ArrowLeft, Save, Send, X } from 'lucide-react';
@@ -233,100 +225,79 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
               <CardTitle>Post Details</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <Form {...form}>
-                <FormField
-                  control={form.control}
-                  name="title"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Title</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          onChange={(e) => handleTitleChange(e.target.value)}
-                          placeholder="Enter post title"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+              <div className="space-y-6">
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Title
+                  </label>
+                  <Input
+                    value={form.watch('title')}
+                    onChange={(e) => handleTitleChange(e.target.value)}
+                    placeholder="Enter post title"
+                    className="mt-2"
+                  />
+                </div>
 
-                <FormField
-                  control={form.control}
-                  name="slug"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Slug (URL)</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="post-url-slug" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Slug (URL)
+                  </label>
+                  <Input 
+                    value={form.watch('slug')}
+                    onChange={(e) => form.setValue('slug', e.target.value)}
+                    placeholder="post-url-slug"
+                    className="mt-2"
+                  />
+                </div>
 
-                <FormField
-                  control={form.control}
-                  name="excerpt"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Excerpt (Optional)</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          {...field} 
-                          placeholder="Brief description of the post..."
-                          rows={3}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Excerpt (Optional)
+                  </label>
+                  <Textarea 
+                    value={form.watch('excerpt')}
+                    onChange={(e) => form.setValue('excerpt', e.target.value)}
+                    placeholder="Brief description of the post..."
+                    rows={3}
+                    className="mt-2"
+                  />
+                </div>
 
-                <FormField
-                  control={form.control}
-                  name="tags"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Tags (Optional)</FormLabel>
-                      <FormControl>
-                        <Input {...field} placeholder="react, javascript, tutorial" />
-                      </FormControl>
-                      <FormMessage />
-                      {watchedTags && (
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {parseTags(watchedTags).map((tag) => (
-                            <Badge key={tag} variant="secondary" className="text-xs">
-                              {tag}
-                            </Badge>
-                          ))}
-                        </div>
-                      )}
-                    </FormItem>
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Tags (Optional)
+                  </label>
+                  <Input 
+                    value={form.watch('tags')}
+                    onChange={(e) => form.setValue('tags', e.target.value)}
+                    placeholder="react, javascript, tutorial"
+                    className="mt-2"
+                  />
+                  {watchedTags && (
+                    <div className="flex flex-wrap gap-2 mt-2">
+                      {parseTags(watchedTags).map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   )}
-                />
+                </div>
 
-                <FormField
-                  control={form.control}
-                  name="read_time_minutes"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Read Time (minutes)</FormLabel>
-                      <FormControl>
-                        <Input 
-                          {...field} 
-                          type="number" 
-                          min="1"
-                          onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
-                          placeholder="5"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </Form>
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Read Time (minutes)
+                  </label>
+                  <Input 
+                    value={form.watch('read_time_minutes')}
+                    onChange={(e) => form.setValue('read_time_minutes', parseInt(e.target.value) || 1)}
+                    type="number" 
+                    min="1"
+                    placeholder="5"
+                    className="mt-2"
+                  />
+                </div>
+              </div>
             </CardContent>
           </Card>
 
@@ -342,15 +313,10 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
                 </TabsList>
                 
                 <TabsContent value="edit" className="mt-4">
-                  <FormField
-                    control={form.control}
-                    name="content"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Textarea
-                            {...field}
-                            placeholder="Write your blog post content here... Use markdown formatting:
+                  <Textarea
+                    value={form.watch('content')}
+                    onChange={(e) => form.setValue('content', e.target.value)}
+                    placeholder="Write your blog post content here... Use markdown formatting:
 
 # Heading 1
 ## Heading 2  
@@ -361,13 +327,8 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
 
 - Bullet point
 - Another point"
-                            rows={20}
-                            className="font-mono text-sm"
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    rows={20}
+                    className="font-mono text-sm"
                   />
                 </TabsContent>
                 
