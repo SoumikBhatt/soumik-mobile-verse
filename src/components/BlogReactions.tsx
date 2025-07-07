@@ -1,12 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
-import { Heart, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Heart } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 
 interface BlogReactionsProps {
   blogPostId: string;
@@ -14,16 +11,12 @@ interface BlogReactionsProps {
 
 interface Reaction {
   id: string;
-  reaction_type: 'like' | 'love' | 'dislike';
-  user_name: string;
-  user_email: string;
+  reaction_type: 'love';
+  user_name: string | null;
+  user_email: string | null;
 }
 
 const BlogReactions: React.FC<BlogReactionsProps> = ({ blogPostId }) => {
-  const [userEmail, setUserEmail] = useState('');
-  const [userName, setUserName] = useState('');
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [selectedReaction, setSelectedReaction] = useState<string | null>(null);
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -41,14 +34,14 @@ const BlogReactions: React.FC<BlogReactionsProps> = ({ blogPostId }) => {
   });
 
   const addReactionMutation = useMutation({
-    mutationFn: async ({ reactionType, email, name }: { reactionType: string; email: string; name: string }) => {
+    mutationFn: async () => {
       const { data, error } = await supabase
         .from('blog_reactions')
-        .upsert({
+        .insert({
           blog_post_id: blogPostId,
-          user_email: email,
-          user_name: name,
-          reaction_type: reactionType,
+          reaction_type: 'love',
+          user_name: null,
+          user_email: null,
         });
 
       if (error) throw error;
@@ -56,111 +49,38 @@ const BlogReactions: React.FC<BlogReactionsProps> = ({ blogPostId }) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['blog-reactions', blogPostId] });
-      setIsDialogOpen(false);
-      setUserEmail('');
-      setUserName('');
-      toast({ title: 'Reaction added successfully!' });
+      toast({ title: 'Love reaction added!' });
     },
     onError: () => {
       toast({ title: 'Failed to add reaction', variant: 'destructive' });
     },
   });
 
-  const handleReactionClick = (reactionType: string) => {
-    setSelectedReaction(reactionType);
-    setIsDialogOpen(true);
+  const handleLoveClick = () => {
+    addReactionMutation.mutate();
   };
 
-  const handleSubmitReaction = () => {
-    if (!selectedReaction || !userEmail || !userName) return;
-    addReactionMutation.mutate({
-      reactionType: selectedReaction,
-      email: userEmail,
-      name: userName,
-    });
-  };
-
-  const getReactionCount = (type: string) => {
-    return reactions.filter(r => r.reaction_type === type).length;
-  };
-
-  const getReactionIcon = (type: string) => {
-    switch (type) {
-      case 'like':
-        return <ThumbsUp className="w-4 h-4" />;
-      case 'love':
-        return <Heart className="w-4 h-4" />;
-      case 'dislike':
-        return <ThumbsDown className="w-4 h-4" />;
-      default:
-        return null;
-    }
-  };
+  const loveCount = reactions.length;
 
   return (
     <div className="border-t pt-6">
       <h3 className="text-lg font-semibold mb-4">Reactions</h3>
       
       <div className="flex gap-3 mb-4">
-        {['like', 'love', 'dislike'].map((type) => (
-          <Button
-            key={type}
-            variant="outline"
-            size="sm"
-            onClick={() => handleReactionClick(type)}
-            className="flex items-center gap-2"
-          >
-            {getReactionIcon(type)}
-            <span className="capitalize">{type}</span>
-            <span className="bg-muted px-2 py-1 rounded-full text-xs">
-              {getReactionCount(type)}
-            </span>
-          </Button>
-        ))}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleLoveClick}
+          disabled={addReactionMutation.isPending}
+          className="flex items-center gap-2"
+        >
+          <Heart className="w-4 h-4" />
+          <span>Love</span>
+          <span className="bg-muted px-2 py-1 rounded-full text-xs">
+            {loveCount}
+          </span>
+        </Button>
       </div>
-
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Add Your Reaction</DialogTitle>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            <div>
-              <Label htmlFor="name">Your Name</Label>
-              <Input
-                id="name"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                placeholder="Enter your name"
-              />
-            </div>
-            
-            <div>
-              <Label htmlFor="email">Your Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-                placeholder="Enter your email"
-              />
-            </div>
-            
-            <div className="flex justify-end gap-2">
-              <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                Cancel
-              </Button>
-              <Button 
-                onClick={handleSubmitReaction}
-                disabled={!userName || !userEmail || addReactionMutation.isPending}
-              >
-                {addReactionMutation.isPending ? 'Adding...' : `Add ${selectedReaction}`}
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };

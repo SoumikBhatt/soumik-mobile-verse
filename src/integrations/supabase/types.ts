@@ -103,24 +103,24 @@ export type Database = {
           created_at: string
           id: string
           reaction_type: string
-          user_email: string
-          user_name: string
+          user_email: string | null
+          user_name: string | null
         }
         Insert: {
           blog_post_id: string
           created_at?: string
           id?: string
           reaction_type: string
-          user_email: string
-          user_name: string
+          user_email?: string | null
+          user_name?: string | null
         }
         Update: {
           blog_post_id?: string
           created_at?: string
           id?: string
           reaction_type?: string
-          user_email?: string
-          user_name?: string
+          user_email?: string | null
+          user_name?: string | null
         }
         Relationships: [
           {
