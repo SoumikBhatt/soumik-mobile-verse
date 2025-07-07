@@ -5,8 +5,9 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Heart, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useBlogEngagement } from '@/hooks/useBlogEngagement';
 
 interface BlogPost {
   id: string;
@@ -33,6 +34,13 @@ const BlogSection: React.FC = () => {
       return data as BlogPost[];
     },
   });
+
+  const blogPostIds = blogPosts?.map(post => post.id) || [];
+  const { data: engagementStats } = useBlogEngagement(blogPostIds);
+
+  const getEngagementStats = (postId: string) => {
+    return engagementStats?.find(stat => stat.postId === postId) || { reactionCount: 0, commentCount: 0 };
+  };
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -104,6 +112,18 @@ const BlogSection: React.FC = () => {
                       {post.read_time_minutes} min read
                     </div>
                   )}
+                </div>
+
+                {/* Engagement Stats */}
+                <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <div className="flex items-center">
+                    <Heart className="w-4 h-4 mr-1" />
+                    {getEngagementStats(post.id).reactionCount}
+                  </div>
+                  <div className="flex items-center">
+                    <MessageCircle className="w-4 h-4 mr-1" />
+                    {getEngagementStats(post.id).commentCount}
+                  </div>
                 </div>
 
                 <Button variant="outline" size="sm" asChild className="w-full">

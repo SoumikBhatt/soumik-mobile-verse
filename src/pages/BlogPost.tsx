@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import BlogReactions from '@/components/BlogReactions';
+import BlogComments from '@/components/BlogComments';
 import { parseMarkdownContent } from '@/utils/markdownParser';
 
 interface BlogPost {
@@ -151,9 +153,15 @@ const BlogPost = () => {
 
           {/* Content */}
           <div 
-            className="prose prose-lg dark:prose-invert max-w-none"
+            className="prose prose-lg dark:prose-invert max-w-none mb-12"
             dangerouslySetInnerHTML={{ __html: parseMarkdownContent(blogPost.content) }}
           />
+
+          {/* Reactions */}
+          <BlogReactions blogPostId={blogPost.id} />
+
+          {/* Comments */}
+          <BlogComments blogPostId={blogPost.id} />
         </div>
       </article>
 
