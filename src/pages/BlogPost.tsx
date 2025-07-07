@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -16,6 +17,7 @@ interface BlogPost {
   title: string;
   slug: string;
   content: string;
+  excerpt: string | null;
   featured_image_url: string | null;
   published_at: string;
   author_name: string | null;
@@ -90,8 +92,43 @@ const BlogPost = () => {
     );
   }
 
+  const currentUrl = `https://workofsoumik.com/blog/${blogPost.slug}`;
+  const description = blogPost.excerpt || `Read "${blogPost.title}" - A blog post by ${blogPost.author_name || 'Soumik Bhattacharjee'}`;
+  const imageUrl = blogPost.featured_image_url || 'https://workofsoumik.com/placeholder.svg';
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      <Helmet>
+        {/* Basic Meta Tags */}
+        <title>{blogPost.title} | Soumik - Mobile Developer</title>
+        <meta name="description" content={description} />
+        <meta name="author" content={blogPost.author_name || 'Soumik Bhattacharjee'} />
+        <meta name="keywords" content={blogPost.tags?.join(', ') || 'mobile development, android, flutter'} />
+        
+        {/* Open Graph Tags */}
+        <meta property="og:title" content={blogPost.title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={currentUrl} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:site_name" content="Soumik - Mobile Developer" />
+        <meta property="article:author" content={blogPost.author_name || 'Soumik Bhattacharjee'} />
+        <meta property="article:published_time" content={blogPost.published_at} />
+        {blogPost.tags && blogPost.tags.map((tag) => (
+          <meta key={tag} property="article:tag" content={tag} />
+        ))}
+        
+        {/* Twitter Card Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blogPost.title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={imageUrl} />
+        <meta name="twitter:creator" content="@soumikbhatta" />
+        
+        {/* Additional Meta Tags */}
+        <link rel="canonical" href={currentUrl} />
+      </Helmet>
+      
       <Navbar />
       
       <article className="pt-20 pb-16">
