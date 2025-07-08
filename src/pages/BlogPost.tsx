@@ -94,7 +94,7 @@ const BlogPost = () => {
 
   const currentUrl = `https://workofsoumik.com/blog/${blogPost.slug}`;
   const description = blogPost.excerpt || `Read "${blogPost.title}" - A blog post by ${blogPost.author_name || 'Soumik Bhattacharjee'}`;
-  const imageUrl = blogPost.featured_image_url || 'https://workofsoumik.com/placeholder.svg';
+  const imageUrl = blogPost.featured_image_url || 'https://workofsoumik.com/og-default.png';
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -111,6 +111,9 @@ const BlogPost = () => {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={currentUrl} />
         <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={`Blog post: ${blogPost.title}`} />
         <meta property="og:site_name" content="Soumik - Mobile Developer" />
         <meta property="article:author" content={blogPost.author_name || 'Soumik Bhattacharjee'} />
         <meta property="article:published_time" content={blogPost.published_at} />
