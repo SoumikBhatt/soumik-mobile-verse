@@ -1,9 +1,14 @@
 // This script generates static HTML files for each blog post
 // It should be run as part of the build process
 
-const fs = require('fs');
-const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
+import fs from 'fs';
+import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+import { fileURLToPath } from 'url';
+
+// Get the directory name using ES module pattern
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Initialize Supabase client
 const SUPABASE_URL = "https://mpzdruhkfxovfnigpdom.supabase.co";
@@ -169,16 +174,15 @@ async function generateStaticBlogPages() {
   }
 }
 
-// If this script is run directly
-if (require.main === module) {
-  generateStaticBlogPages()
-    .then(() => {
-      console.log('Static blog page generation script completed.');
-    })
-    .catch(error => {
-      console.error('Error in static blog page generation script:', error);
-      process.exit(1);
-    });
-}
+// Execute the function when this script is run directly
+generateStaticBlogPages()
+  .then(() => {
+    console.log('Static blog page generation script completed.');
+  })
+  .catch(error => {
+    console.error('Error in static blog page generation script:', error);
+    process.exit(1);
+  });
 
-module.exports = { generateStaticBlogPages };
+// Export the function for potential imports
+export { generateStaticBlogPages };
