@@ -92,9 +92,15 @@ const BlogPost = () => {
     );
   }
 
+  // Ensure we have the full URL for social media sharing
   const currentUrl = `https://workofsoumik.com/blog/${blogPost.slug}`;
   const description = blogPost.excerpt || `Read "${blogPost.title}" - A blog post by ${blogPost.author_name || 'Soumik Bhattacharjee'}`;
-  const imageUrl = blogPost.featured_image_url || 'https://workofsoumik.com/og-default.png';
+  // Ensure image URLs are absolute for social media sharing
+  const imageUrl = blogPost.featured_image_url 
+    ? (blogPost.featured_image_url.startsWith('http') 
+        ? blogPost.featured_image_url 
+        : `https://workofsoumik.com${blogPost.featured_image_url}`)
+    : 'https://workofsoumik.com/og-default.png';
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
