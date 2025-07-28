@@ -140,7 +140,7 @@ async function generateStaticBlogPages() {
       const imageUrl = post.featured_image_url 
         ? (post.featured_image_url.startsWith('http') 
             ? post.featured_image_url 
-            : `https://workofsoumik.com${post.featured_image_url}`)
+            : `${post.featured_image_url}`)
         : 'https://workofsoumik.com/og-default.png';
       
       // Generate the static HTML
