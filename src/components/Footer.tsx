@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
 
         <div className="border-t border-gray-800 pt-8">
           <p className="text-center text-gray-400">
-            &copy; {currentYear} Soumik Bhattacharjee. All rights reserved.
+            &copy; {currentYear} Soumik Bhattacharjee. All rights reserved (v1.0.0).
           </p>
           <p className="text-center text-gray-500 text-sm mt-2">
             Sr. Software Engineer (Android, Flutter)
