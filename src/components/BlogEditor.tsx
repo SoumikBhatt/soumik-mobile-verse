@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { parseMarkdownContent } from '@/utils/markdownParser';
-import { ArrowLeft, Save, Send, X } from 'lucide-react';
+import { ArrowLeft, Save, Send, X, Upload, ImageIcon } from 'lucide-react';
 
 const blogPostSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -33,6 +33,7 @@ interface BlogPost {
   published: boolean;
   tags: string[] | null;
   read_time_minutes: number | null;
+  featured_image_url: string | null;
 }
 
 interface BlogEditorProps {
@@ -43,6 +44,9 @@ interface BlogEditorProps {
 const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('edit');
+  const [featuredImage, setFeaturedImage] = useState<File | null>(null);
+  const [featuredImageUrl, setFeaturedImageUrl] = useState<string | null>(null);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<BlogPostForm>({
@@ -67,6 +71,7 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
         tags: post.tags?.join(', ') || '',
         read_time_minutes: post.read_time_minutes || 5,
       });
+      setFeaturedImageUrl(post.featured_image_url);
     }
   }, [post, form]);
 
@@ -93,6 +98,52 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
       .filter(tag => tag.length > 0);
   };
 
+  const handleImageUpload = async (file: File) => {
+    setIsUploadingImage(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `blog-images/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('blog-images')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('blog-images')
+        .getPublicUrl(filePath);
+
+      setFeaturedImageUrl(publicUrl);
+      toast({
+        title: "Success",
+        description: "Featured image uploaded successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to upload image",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploadingImage(false);
+    }
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFeaturedImage(file);
+      handleImageUpload(file);
+    }
+  };
+
+  const removeFeaturedImage = () => {
+    setFeaturedImage(null);
+    setFeaturedImageUrl(null);
+  };
+
   const saveDraft = async (data: BlogPostForm) => {
     setIsLoading(true);
     try {
@@ -103,6 +154,7 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
         content: data.content,
         tags: data.tags ? parseTags(data.tags) : null,
         read_time_minutes: data.read_time_minutes || null,
+        featured_image_url: featuredImageUrl,
         published: false,
         published_at: null,
       };
@@ -148,6 +200,7 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
         content: data.content,
         tags: data.tags ? parseTags(data.tags) : null,
         read_time_minutes: data.read_time_minutes || null,
+        featured_image_url: featuredImageUrl,
         published: true,
         published_at: new Date().toISOString(),
       };
@@ -261,6 +314,77 @@ const BlogEditor = ({ post, onClose }: BlogEditorProps) => {
                     rows={3}
                     className="mt-2"
                   />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                    Featured Image (Optional)
+                  </label>
+                  <div className="mt-2 space-y-4">
+                    {featuredImageUrl ? (
+                      <div className="relative group">
+                        <img 
+                          src={featuredImageUrl} 
+                          alt="Featured image preview"
+                          className="w-full h-48 object-cover rounded-lg border"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={removeFeaturedImage}
+                          className="absolute top-2 right-2 bg-white/90 hover:bg-white"
+                        >
+                          <X className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-6">
+                        <div className="text-center">
+                          <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
+                          <div className="mt-4">
+                            <label htmlFor="featured-image-upload" className="cursor-pointer">
+                              <span className="mt-2 block text-sm font-medium text-gray-900 dark:text-gray-100">
+                                Upload featured image
+                              </span>
+                              <span className="block text-xs text-gray-500 dark:text-gray-400">
+                                PNG, JPG, GIF up to 10MB
+                              </span>
+                            </label>
+                            <input
+                              id="featured-image-upload"
+                              type="file"
+                              className="sr-only"
+                              accept="image/*"
+                              onChange={handleImageChange}
+                              disabled={isUploadingImage}
+                            />
+                          </div>
+                          <div className="mt-4">
+                            <Button
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              disabled={isUploadingImage}
+                              onClick={() => document.getElementById('featured-image-upload')?.click()}
+                            >
+                              {isUploadingImage ? (
+                                <>
+                                  <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin mr-2" />
+                                  Uploading...
+                                </>
+                              ) : (
+                                <>
+                                  <Upload className="w-4 h-4 mr-2" />
+                                  Choose Image
+                                </>
+                              )}
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div>

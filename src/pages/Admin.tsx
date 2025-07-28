@@ -20,6 +20,7 @@ interface BlogPost {
   created_at: string;
   tags: string[] | null;
   read_time_minutes: number | null;
+  featured_image_url: string | null;
 }
 
 const Admin = () => {
@@ -32,7 +33,7 @@ const Admin = () => {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('id, title, slug, excerpt, content, published, published_at, created_at, tags, read_time_minutes')
+        .select('id, title, slug, excerpt, content, published, published_at, created_at, tags, read_time_minutes, featured_image_url')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
