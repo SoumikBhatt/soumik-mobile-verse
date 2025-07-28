@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Post | Soumik - Mobile Developer</title>
+  <meta name="description" content="Read this blog post by Soumik Bhattacharjee, a mobile developer specializing in Android and Flutter." />
+  <meta name="author" content="Soumik Bhattacharjee" />
+
+  <!-- Open Graph Tags -->
+  <meta property="og:title" content="Blog Post | Soumik - Mobile Developer" />
+  <meta property="og:description" content="Read this blog post by Soumik Bhattacharjee, a mobile developer specializing in Android and Flutter." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://workofsoumik.com/blog" />
+  <meta property="og:image" content="https://workofsoumik.com/og-default.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Soumik - Mobile Developer" />
+
+  <!-- Twitter Card Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Blog Post | Soumik - Mobile Developer" />
+  <meta name="twitter:description" content="Read this blog post by Soumik Bhattacharjee, a mobile developer specializing in Android and Flutter." />
+  <meta name="twitter:image" content="https://workofsoumik.com/og-default.png" />
+  <meta name="twitter:creator" content="@soumikbhatta" />
+  <meta name="twitter:site" content="@soumikbhatta" />
+
+  <!-- Dynamic content script -->
+  <script type="text/javascript">
+    // This script will update the meta tags based on the URL
+    (function() {
+      // Extract the slug from the URL
+      const path = window.location.pathname;
+      const slug = path.includes('/blog/') ? path.split('/blog/')[1] : '';
+      
+      if (slug) {
+        // Update the title and meta tags with the slug
+        document.title = `${slug} | Soumik - Mobile Developer`;
+        
+        // Update Open Graph tags
+        document.querySelector('meta[property="og:title"]').setAttribute('content', `${slug} | Soumik - Mobile Developer`);
+        document.querySelector('meta[property="og:url"]').setAttribute('content', `https://workofsoumik.com/blog/${slug}`);
+        
+        // Update Twitter Card tags
+        document.querySelector('meta[name="twitter:title"]').setAttribute('content', `${slug} | Soumik - Mobile Developer`);
+      }
+      
+      // Redirect to the actual app after a short delay
+      setTimeout(function() {
+        window.location.href = '/' + (slug ? `?/blog/${slug}` : '');
+      }, 100);
+    })();
+  </script>
+</head>
+<body>
+  <h1>Loading blog post...</h1>
+  <p>If you are not redirected automatically, please <a href="/">click here</a>.</p>
+</body>
+</html>
