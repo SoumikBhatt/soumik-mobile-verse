@@ -105,7 +105,7 @@ function generateSitemap(blogPosts) {
 
 // This function fetches blog posts from Supabase and generates static HTML files for each one
 async function generateStaticBlogPages() {
-  console.log('Generating static blog pages...',imageUrl);
+  console.log('Generating static blog pages...');
   
   try {
     // Fetch published blog posts from Supabase
