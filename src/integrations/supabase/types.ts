@@ -132,6 +132,27 @@ export type Database = {
           },
         ]
       }
+      blog_views: {
+        Row: {
+          blog_post_id: string
+          created_at: string
+          device_identifier: string
+          id: string
+        }
+        Insert: {
+          blog_post_id: string
+          created_at?: string
+          device_identifier: string
+          id?: string
+        }
+        Update: {
+          blog_post_id?: string
+          created_at?: string
+          device_identifier?: string
+          id?: string
+        }
+        Relationships: []
+      }
       contact_submissions: {
         Row: {
           created_at: string
@@ -167,7 +188,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_blog_post_view_count: {
+        Args: { post_id: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never
