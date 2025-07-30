@@ -97,9 +97,7 @@ const BlogPost = () => {
   const description = blogPost.excerpt || `Read "${blogPost.title}" - A blog post by ${blogPost.author_name || 'Soumik Bhattacharjee'}`;
   // Ensure image URLs are absolute for social media sharing
   const imageUrl = blogPost.featured_image_url 
-    ? (blogPost.featured_image_url.startsWith('http') 
-        ? blogPost.featured_image_url 
-        : `https://workofsoumik.com${blogPost.featured_image_url}`)
+    ? blogPost.featured_image_url 
     : 'https://workofsoumik.com/og-default.png';
 
   return (

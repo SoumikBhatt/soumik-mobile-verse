@@ -17,6 +17,7 @@ const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 // Function to generate a static HTML file for a blog post
 function generateStaticBlogPage(slug, title, description, imageUrl) {
+  console.log('Generating static HTML file for blog post:', imageUrl);
   const template = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,7 +105,7 @@ function generateSitemap(blogPosts) {
 
 // This function fetches blog posts from Supabase and generates static HTML files for each one
 async function generateStaticBlogPages() {
-  console.log('Generating static blog pages...');
+  console.log('Generating static blog pages...',imageUrl);
   
   try {
     // Fetch published blog posts from Supabase
@@ -138,9 +139,7 @@ async function generateStaticBlogPages() {
       
       // Ensure image URLs are absolute for social media sharing
       const imageUrl = post.featured_image_url 
-        ? (post.featured_image_url.startsWith('http') 
             ? post.featured_image_url 
-            : `${post.featured_image_url}`)
         : 'https://workofsoumik.com/og-default.png';
       
       // Generate the static HTML
