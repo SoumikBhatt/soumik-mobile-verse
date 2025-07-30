@@ -4,11 +4,12 @@ import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, User, Heart, MessageCircle } from 'lucide-react';
+import { Calendar, Clock, User, Heart, MessageCircle, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useBlogEngagement } from '@/hooks/useBlogEngagement';
+import { useBlogViewCounts } from '@/hooks/useBlogViews';
 
 interface BlogPost {
   id: string;
@@ -39,6 +40,7 @@ const Blog = () => {
 
   const blogPostIds = blogPosts?.map(post => post.id) || [];
   const { data: engagementStats } = useBlogEngagement(blogPostIds);
+  const viewCounts = useBlogViewCounts(blogPostIds);
 
   const getEngagementStats = (postId: string) => {
     return engagementStats?.find(stat => stat.postId === postId) || { reactionCount: 0, commentCount: 0 };
@@ -164,6 +166,10 @@ const Blog = () => {
                     {/* Engagement Stats */}
                     <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
                       <div className="flex items-center space-x-4">
+                        <div className="flex items-center">
+                          <Eye className="w-4 h-4 mr-1" />
+                          {viewCounts[post.id] || 0} views
+                        </div>
                         <div className="flex items-center">
                           <Heart className="w-4 h-4 mr-1" />
                           {getEngagementStats(post.id).reactionCount} reactions

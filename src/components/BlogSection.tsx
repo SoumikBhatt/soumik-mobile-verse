@@ -5,9 +5,10 @@ import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, Clock, ArrowRight, Heart, MessageCircle } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Heart, MessageCircle, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useBlogEngagement } from '@/hooks/useBlogEngagement';
+import { useBlogViewCounts } from '@/hooks/useBlogViews';
 
 interface BlogPost {
   id: string;
@@ -37,6 +38,7 @@ const BlogSection: React.FC = () => {
 
   const blogPostIds = blogPosts?.map(post => post.id) || [];
   const { data: engagementStats } = useBlogEngagement(blogPostIds);
+  const viewCounts = useBlogViewCounts(blogPostIds);
 
   const getEngagementStats = (postId: string) => {
     return engagementStats?.find(stat => stat.postId === postId) || { reactionCount: 0, commentCount: 0 };
@@ -116,6 +118,10 @@ const BlogSection: React.FC = () => {
 
                 {/* Engagement Stats */}
                 <div className="flex items-center space-x-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                  <div className="flex items-center">
+                    <Eye className="w-4 h-4 mr-1" />
+                    {viewCounts[post.id] || 0}
+                  </div>
                   <div className="flex items-center">
                     <Heart className="w-4 h-4 mr-1" />
                     {getEngagementStats(post.id).reactionCount}
