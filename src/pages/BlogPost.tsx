@@ -5,12 +5,13 @@ import { Helmet } from 'react-helmet-async';
 import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, User, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, User, ArrowLeft, Eye } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import BlogReactions from '@/components/BlogReactions';
 import BlogComments from '@/components/BlogComments';
 import { parseMarkdownContent } from '@/utils/markdownParser';
+import { useBlogViews } from '@/hooks/useBlogViews';
 
 interface BlogPost {
   id: string;
@@ -46,6 +47,9 @@ const BlogPost = () => {
     },
     enabled: !!slug,
   });
+
+  // Use the blog views hook
+  const { viewCount } = useBlogViews(blogPost?.id || '');
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -193,6 +197,10 @@ const BlogPost = () => {
                 {blogPost.read_time_minutes} min read
               </div>
             )}
+            <div className="flex items-center">
+              <Eye className="w-4 h-4 mr-2" />
+              {viewCount} {viewCount === 1 ? 'view' : 'views'}
+            </div>
           </div>
 
           {/* Content */}
