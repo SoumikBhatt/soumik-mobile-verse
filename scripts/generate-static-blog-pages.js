@@ -48,9 +48,12 @@ function generateStaticBlogPage(slug, title, description, imageUrl) {
   <!-- Redirect script -->
   <script type="text/javascript">
     // Redirect to the actual app after a short delay
-    setTimeout(function() {
-      window.location.href = '/?/blog/${slug}';
-    }, 100);
+    // Give social media crawlers time to read meta tags before redirecting
+    if (!navigator.userAgent.match(/facebookexternalhit|twitterbot|linkedinbot|whatsapp|telegram/i)) {
+      setTimeout(function() {
+        window.location.href = '/?/blog/${slug}';
+      }, 1500);
+    }
   </script>
 </head>
 <body>
