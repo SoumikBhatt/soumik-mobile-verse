@@ -4,6 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ArrowUpRight, Github } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ProjectProps {
   title: string;
@@ -13,6 +14,7 @@ interface ProjectProps {
   appStoreLink?: string;
   playStoreLink?: string;
   githubLink?: string;
+  liveDemoLink?: string;
 }
 
 const projects: ProjectProps[] = [
@@ -20,7 +22,7 @@ const projects: ProjectProps[] = [
     title: "PrimePay",
     description: "A comprehensive internet banking app built with Flutter. Features include Fund Transfer,Bills Pay, MFS, Vat Payment, Cheque Managemnt, Report Management, etc.",
     image: "/primepay.jpeg",
-    technologies: ["Flutter", "Riverpod", "Clean Architecture","REST API"],
+    technologies: ["Flutter", "Riverpod", "Clean Architecture", "REST API"],
     // playStoreLink: "#",
     // appStoreLink: "#",
     // githubLink: "#"
@@ -29,7 +31,7 @@ const projects: ProjectProps[] = [
     title: "Sentra",
     description: "Push-to-talk app with Realtime voice communication, Voice interactive AI, One to One message, Group message, Voice call & Video call features. Built with native Android using Java.",
     image: "/sentra.webp",
-    technologies: ["Android", "Java", "MVVM", "Room", "RxJava","gRPC","MQTT","WebRTC"],
+    technologies: ["Android", "Java", "MVVM", "Room", "RxJava", "gRPC", "MQTT", "WebRTC"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.nybsys.sentra.sitex",
     // githubLink: "#"
   },
@@ -44,8 +46,15 @@ const projects: ProjectProps[] = [
     title: "Patient Aid",
     description: "Health tech application with over 1M users built with native Android using Kotlin. Includes features like medicine directory, doctor directory, hospital directory, medicine taking alarm. Maintained offline first strategy.",
     image: "/patientAid.png",
-    technologies: ["Android", "Kotlin", "SQLite", "Retrofit","MVVM","Work Manager"],
+    technologies: ["Android", "Kotlin", "SQLite", "Retrofit", "MVVM", "Work Manager"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.itmedicus.patientaid"
+  },
+  {
+    title: "SMK TV",
+    description: "SMK TV is a Flutter Web–based IPTV app that streams live TV channels using M3U playlists, offering category- and region-based browsing with a fast, PWA-ready experience.",
+    image: "/smk-tv.png",
+    technologies: ["Flutter", "Dart", "m3u8"],
+    liveDemoLink: "/smk-tv"
   }
 ];
 
@@ -56,15 +65,16 @@ const ProjectCard: React.FC<ProjectProps> = ({
   technologies,
   appStoreLink,
   playStoreLink,
-  githubLink
+  githubLink,
+  liveDemoLink
 }) => {
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <div className="h-48 bg-gray-200 dark:bg-gray-800 relative">
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover object-center" 
+        <img
+          src={image}
+          alt={title}
+          className="w-full h-full object-fit object-center"
         />
       </div>
       <CardContent className="p-6">
@@ -97,6 +107,19 @@ const ProjectCard: React.FC<ProjectProps> = ({
               </a>
             </Button>
           )}
+          {liveDemoLink && (
+            <Button size="sm" variant="outline" asChild>
+              {liveDemoLink.startsWith('/') ? (
+                <Link to={liveDemoLink}>
+                  Live Demo <ArrowUpRight className="ml-1 h-3 w-3" />
+                </Link>
+              ) : (
+                <a href={liveDemoLink} target="_blank" rel="noopener noreferrer">
+                  Live Demo <ArrowUpRight className="ml-1 h-3 w-3" />
+                </a>
+              )}
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>
@@ -116,7 +139,7 @@ const Projects: React.FC = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {projects.map((project, index) => (
-            <ProjectCard 
+            <ProjectCard
               key={index}
               title={project.title}
               description={project.description}
@@ -125,6 +148,7 @@ const Projects: React.FC = () => {
               appStoreLink={project.appStoreLink}
               playStoreLink={project.playStoreLink}
               githubLink={project.githubLink}
+              liveDemoLink={project.liveDemoLink}
             />
           ))}
         </div>
