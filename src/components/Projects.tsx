@@ -19,6 +19,13 @@ interface ProjectProps {
 
 const projects: ProjectProps[] = [
   {
+    title: "SMK TV",
+    description: "SMK TV is a Flutter Web–based IPTV app that streams live TV channels using M3U playlists, offering category- and region-based browsing with a fast, PWA-ready experience.",
+    image: "/smk-tv.png",
+    technologies: ["Flutter", "Dart", "m3u8"],
+    liveDemoLink: "/smk-tv"
+  },
+  {
     title: "PrimePay",
     description: "A comprehensive internet banking app built with Flutter. Features include Fund Transfer,Bills Pay, MFS, Vat Payment, Cheque Managemnt, Report Management, etc.",
     image: "/primepay.jpeg",
@@ -48,13 +55,6 @@ const projects: ProjectProps[] = [
     image: "/patientAid.png",
     technologies: ["Android", "Kotlin", "SQLite", "Retrofit", "MVVM", "Work Manager"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.itmedicus.patientaid"
-  },
-  {
-    title: "SMK TV",
-    description: "SMK TV is a Flutter Web–based IPTV app that streams live TV channels using M3U playlists, offering category- and region-based browsing with a fast, PWA-ready experience.",
-    image: "/smk-tv.png",
-    technologies: ["Flutter", "Dart", "m3u8"],
-    liveDemoLink: "/smk-tv"
   }
 ];
 
