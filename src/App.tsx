@@ -10,6 +10,7 @@ import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import Admin from "./pages/Admin";
 import SmkTv from "./pages/SmkTv";
+import Bhakti365PrivacyPolicy from "./pages/Bhakti365PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/smk-tv" element={<SmkTv />} />
+            <Route path="/bhakti365/privacy-policy" element={<Bhakti365PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
