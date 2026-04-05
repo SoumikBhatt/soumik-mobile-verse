@@ -19,17 +19,24 @@ interface ProjectProps {
 
 const projects: ProjectProps[] = [
   {
+    title: "Bhakti365",
+    description: "Bhakti365 is a comprehensive Hindu devotional app providing daily Panchanga, festival information, shlokas, and spiritual guidance.",
+    image: "/bhakti365.png",
+    technologies: ["KMP", "CMP", "Kotlin"],
+    playStoreLink: "https://play.google.com/store/apps/details?id=com.workofsoumik.bhakti365"
+  },
+  {
     title: "SMK TV",
     description: "SMK TV is a Flutter Web–based IPTV app that streams live TV channels using M3U playlists, offering category- and region-based browsing with a fast, PWA-ready experience.",
     image: "/smk-tv.png",
-    technologies: ["Flutter", "Dart", "m3u8"],
+    technologies: ["Flutter", "Dart"],
     liveDemoLink: "/smk-tv"
   },
   {
     title: "PrimePay",
     description: "A comprehensive internet banking app built with Flutter. Features include Fund Transfer,Bills Pay, MFS, Vat Payment, Cheque Managemnt, Report Management, etc.",
     image: "/primepay.jpeg",
-    technologies: ["Flutter", "Riverpod", "Clean Architecture", "REST API"],
+    technologies: ["Flutter", "Dart"],
     // playStoreLink: "#",
     // appStoreLink: "#",
     // githubLink: "#"
@@ -38,7 +45,7 @@ const projects: ProjectProps[] = [
     title: "Sentra",
     description: "Push-to-talk app with Realtime voice communication, Voice interactive AI, One to One message, Group message, Voice call & Video call features. Built with native Android using Java.",
     image: "/sentra.webp",
-    technologies: ["Android", "Java", "MVVM", "Room", "RxJava", "gRPC", "MQTT", "WebRTC"],
+    technologies: ["Android", "Java", "Kotlin"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.nybsys.sentra.sitex",
     // githubLink: "#"
   },
@@ -46,14 +53,14 @@ const projects: ProjectProps[] = [
     title: "Bdjobs",
     description: "Job Portal application with live interview, resume dashboard, my jobs, video resume, etc. Implemented using native Android using Kotlin with clean architecture.",
     image: "/bdjobs.png",
-    technologies: ["Android", "Koltin", "MVVM", "Coroutine", "Google Maps API", "Firebase"],
+    technologies: ["Android", "Koltin"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.bdjobs.app"
   },
   {
     title: "Patient Aid",
     description: "Health tech application with over 1M users built with native Android using Kotlin. Includes features like medicine directory, doctor directory, hospital directory, medicine taking alarm. Maintained offline first strategy.",
     image: "/patientAid.png",
-    technologies: ["Android", "Kotlin", "SQLite", "Retrofit", "MVVM", "Work Manager"],
+    technologies: ["Android", "Kotlin"],
     playStoreLink: "https://play.google.com/store/apps/details?id=com.itmedicus.patientaid"
   }
 ];
@@ -110,7 +117,7 @@ const ProjectCard: React.FC<ProjectProps> = ({
           {liveDemoLink && (
             <Button size="sm" variant="outline" asChild>
               {liveDemoLink.startsWith('/') ? (
-                <Link to={liveDemoLink}>
+                <Link to={liveDemoLink} target="_blank" rel="noopener noreferrer">
                   Live Demo <ArrowUpRight className="ml-1 h-3 w-3" />
                 </Link>
               ) : (

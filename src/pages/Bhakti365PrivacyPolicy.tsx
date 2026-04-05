@@ -1,7 +1,7 @@
 const Bhakti365PrivacyPolicy = () => {
   return (
     <iframe
-      src="/legal/privacy_policy.html"
+      src="/bhakti365/privacy_policy.html"
       title="Bhakti365 Privacy Policy"
       style={{
         width: "100%",
