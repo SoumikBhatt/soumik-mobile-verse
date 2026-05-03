@@ -13,6 +13,7 @@ import SmkTv from "./pages/SmkTv";
 import Bhakti365PrivacyPolicy from "./pages/Bhakti365PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 import Bhakti365 from "./pages/Bhakti365";
+import NotificationConsole from "./pages/NotificationConsole";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/admin" element={<Admin />} />
             <Route path="/smk-tv" element={<SmkTv />} />
+            <Route path="/notification-console" element={<NotificationConsole />} />
             <Route path="/bhakti365" element={<Bhakti365 />} />
             <Route path="/bhakti365/privacy-policy" element={<Bhakti365PrivacyPolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
