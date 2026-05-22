@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <!--
     If you are serving your web app in a path other than the root, change the
@@ -28,12 +27,18 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
   <title>Notification Console</title>
   <link rel="manifest" href="manifest.json">
+  <!-- Scripts required for local Gemma model inference and caching on Web -->
+  <script src="cache_api.js" defer></script>
+  <script type="module">
+    import { FilesetResolver, LlmInference } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-genai@0.10.27';
+    window.FilesetResolver = FilesetResolver;
+    window.LlmInference = LlmInference;
+  </script>
 </head>
-
 <body>
   <!--
     You can customize the "flutter_bootstrap.js" script.
@@ -45,5 +50,4 @@
   -->
   <script src="flutter_bootstrap.js" async></script>
 </body>
-
 </html>
