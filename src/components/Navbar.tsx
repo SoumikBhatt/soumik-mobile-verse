@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
       return (
         <Link
           to={link.href}
-          className="text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
+          className="text-foreground/80 hover:text-mobile-primary font-medium transition-colors duration-200"
         >
           {link.text}
         </Link>
@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
       <a
         href={link.href}
         onClick={(e) => handleInternalLinkClick(e, link.href, location, navigate)}
-        className="text-gray-700 dark:text-gray-300 hover:text-mobile-primary transition-colors duration-200"
+        className="text-foreground/80 hover:text-mobile-primary font-medium transition-colors duration-200"
       >
         {link.text}
       </a>
@@ -73,12 +73,14 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm z-50 shadow-sm">
+    <nav className="fixed top-0 left-0 right-0 bg-background/70 dark:bg-[#0B0F13]/70 backdrop-blur-md border-b border-border/40 z-50">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
-            <Smartphone className="h-6 w-6 text-mobile-primary" />
-            <span className="font-bold text-lg">Soumik Bhattacharjee</span>
+            <div className="flex items-center justify-center font-black bg-mobile-primary text-black dark:text-black w-8 h-8 rounded-lg text-sm tracking-tighter shadow-sm hover:scale-105 transition-transform duration-200">
+              SB
+            </div>
+            <span className="font-extrabold text-base tracking-tight text-foreground hidden sm:inline-block">Soumik</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -91,9 +93,9 @@ const Navbar: React.FC = () => {
             <ThemeToggle />
             <Button
               asChild
-              className="bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
+              className="bg-mobile-primary hover:bg-mobile-secondary text-black hover:text-white font-bold transition-all duration-300 rounded-full px-5 py-1.5 h-auto text-xs"
             >
-              <a href="#contact" onClick={(e) => handleInternalLinkClick(e, "#contact", location, navigate)}>Hire Me</a>
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
             </Button>
           </div>
 
@@ -101,32 +103,31 @@ const Navbar: React.FC = () => {
           <div className="md:hidden flex items-center gap-2">
             <ThemeToggle />
             <button
-              className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none"
+              className="text-foreground/80 hover:text-foreground focus:outline-none"
               onClick={toggleMenu}
               aria-label="Toggle menu"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation Menu */}
         {isMenuOpen && (
-          <div className="md:hidden mt-2 py-4 space-y-3">
+          <div className="md:hidden mt-2 py-4 space-y-4 border-t border-border/40">
             {navLinks.map((link) => (
-              <div key={link.text} onClick={() => setIsMenuOpen(false)}>
+              <div key={link.text} onClick={() => setIsMenuOpen(false)} className="px-2">
                 {renderNavLink(link)}
               </div>
             ))}
-            <Button
-              asChild
-              className="w-full mt-2 bg-gradient-to-r from-mobile-primary to-mobile-secondary hover:opacity-90"
-            >
-              <a href="#contact" onClick={(e) => {
-                handleInternalLinkClick(e,"#contact",location,navigate)
-                setIsMenuOpen(false)
-              }}>Hire Me</a>
-            </Button>
+            <div className="px-2 pt-2 flex flex-col gap-2">
+              <Button
+                asChild
+                className="w-full bg-mobile-primary hover:bg-mobile-secondary text-black hover:text-white font-bold transition-all duration-300 rounded-full py-2 h-auto text-xs"
+              >
+                <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+              </Button>
+            </div>
           </div>
         )}
       </div>

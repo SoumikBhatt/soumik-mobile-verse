@@ -35,7 +35,7 @@ const huggingFaceTokenPlugin = (mode: string): Plugin => {
     name: 'hugging-face-token-replacement',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (req.url && req.url.includes('main.dart.js')) {
+        if (req.url && req.url.includes('notification-console/main.dart.js')) {
           const filePath = path.resolve(__dirname, 'public/notification-console/main.dart.js');
           if (fs.existsSync(filePath)) {
             let content = fs.readFileSync(filePath, 'utf-8');
