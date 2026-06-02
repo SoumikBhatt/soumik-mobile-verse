@@ -64,11 +64,11 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				},
 				mobile: {
-					primary: '#9b87f5',
-					secondary: '#7E69AB',
-					tertiary: '#6E59A5',
-					dark: '#1A1F2C',
-					light: '#F1F0FB'
+					primary: '#22C55E',
+					secondary: '#16A34A',
+					tertiary: '#15803D',
+					dark: '#0B0F13',
+					light: '#FAFAFA'
 				}
 			},
 			borderRadius: {

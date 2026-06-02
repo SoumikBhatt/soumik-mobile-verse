@@ -1,125 +1,80 @@
-
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Code, Smartphone, Palette, Rocket } from 'lucide-react';
 
 interface SkillCardProps {
-  icon: React.ReactNode;
+  icons: string[];
   title: string;
   description: string;
 }
 
-const SkillCard: React.FC<SkillCardProps> = ({ icon, title, description }) => {
+const SkillCard: React.FC<SkillCardProps> = ({ icons, title, description }) => {
   return (
-    <Card className="border-none shadow-md hover:shadow-lg transition-shadow duration-300">
-      <CardContent className="p-6">
-        <div className="bg-mobile-primary/10 w-12 h-12 rounded-md flex items-center justify-center mb-4 text-mobile-primary">
-          {icon}
+    <Card className="border border-border/40 bg-card hover:bg-card/50 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 rounded-2xl overflow-hidden">
+      <CardContent className="p-6 sm:p-8 flex flex-col justify-between h-full space-y-6">
+        <div className="flex items-center gap-2.5">
+          {icons.map((iconUrl, idx) => (
+            <div key={idx} className="w-10 h-10 rounded-xl bg-foreground/5 dark:bg-foreground/5 flex items-center justify-center border border-border/20 shadow-sm overflow-hidden p-2 select-none">
+              <img src={iconUrl} alt={`${title} logo ${idx + 1}`} className="w-full h-full object-contain" />
+            </div>
+          ))}
         </div>
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
-        <p className="text-gray-600 dark:text-gray-300">{description}</p>
+        <div className="space-y-2">
+          <h3 className="text-xl font-bold tracking-tight text-foreground">{title}</h3>
+          <p className="text-sm sm:text-base text-muted-foreground leading-relaxed font-normal">{description}</p>
+        </div>
       </CardContent>
     </Card>
   );
 };
 
 const About: React.FC = () => {
-  const skills = [
+  const expertiseCards = [
     {
-      icon: <Smartphone className="w-6 h-6" />,
-      title: "Mobile Development",
-      description: "Expert in native Android development and cross-platform solutions with Flutter."
+      icons: ["/expertise/android.svg", "/expertise/kotlin.svg", "/expertise/java.svg"],
+      title: "Android Development",
+      description: "Kotlin, Java, clean architecture, performance optimization, and API integration."
     },
     {
-      icon: <Code className="w-6 h-6" />,
-      title: "Clean Architecture",
-      description: "Building robust, maintainable, and testable mobile applications with SOLID principles."
+      icons: ["/expertise/kmp.svg", "/expertise/cmp.svg"],
+      title: "Kotlin Multiplatform",
+      description: "Kotlin Multiplatform specializing in shared core models and business logic."
     },
     {
-      icon: <Palette className="w-6 h-6" />,
-      title: "UI/UX Design",
-      description: "Creating intuitive and beautiful user interfaces following Material Design guidelines."
-    },
-    {
-      icon: <Rocket className="w-6 h-6" />,
-      title: "Performance Optimization",
-      description: "Optimizing apps for speed, responsiveness and battery efficiency across devices."
+      icons: ["/expertise/flutter.svg", "/expertise/dart.svg"],
+      title: "Flutter Development",
+      description: "Flutter Development, responsive layouts, custom widgets, state management."
     }
   ];
 
   return (
-    <section id="about" className="py-20 bg-gray-50 dark:bg-gray-900">
+    <section id="about" className="py-24 bg-card/10 border-y border-border/20 relative overflow-hidden">
+      {/* Decorative Background Glows */}
+      <div className="absolute top-1/2 left-1/4 w-72 h-72 rounded-full bg-mobile-primary/2 blur-[100px] pointer-events-none -z-10"></div>
+      
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="section-heading">About Me</h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mt-4">
-            I'm a Software Engineer specializing in Android and Flutter development with a passion for crafting exceptional mobile experiences.
+        
+        {/* Section Heading */}
+        <div className="text-center mb-16 space-y-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            Expertise
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-base sm:text-lg font-normal leading-relaxed">
+            A showcase of my core development capabilities across native Android, cross-platform Flutter, and Kotlin Multiplatform ecosystems.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Who I Am</h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              I'm Soumik Bhattacharjee, a Software Engineer with expertise in mobile application development. With a strong foundation in Android and Flutter, I specialize in creating responsive, user-friendly mobile applications that deliver exceptional user experiences.
-            </p>
-            <p className="text-gray-600 dark:text-gray-300">
-              My approach combines technical excellence with creative problem-solving, ensuring that every app I build is not only functional but also visually appealing and intuitive to use.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-2xl font-bold mb-4">My Expertise</h3>
-            <div className="space-y-3">
-              <div className="flex flex-col">
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium">Android (Java/Kotlin)</span>
-                  <span>95%</span>
-                </div>
-                <div className="h-2 bg-gray-200 rounded-full">
-                  <div className="h-full bg-mobile-primary rounded-full" style={{ width: '95%' }}></div>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium">Flutter & Dart</span>
-                  <span>90%</span>
-                </div>
-                <div className="h-2 bg-gray-200 rounded-full">
-                  <div className="h-full bg-mobile-primary rounded-full" style={{ width: '90%' }}></div>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium">SQL</span>
-                  <span>85%</span>
-                </div>
-                <div className="h-2 bg-gray-200 rounded-full">
-                  <div className="h-full bg-mobile-primary rounded-full" style={{ width: '85%' }}></div>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex justify-between mb-1">
-                  <span className="font-medium">Git</span>
-                  <span>80%</span>
-                </div>
-                <div className="h-2 bg-gray-200 rounded-full">
-                  <div className="h-full bg-mobile-primary rounded-full" style={{ width: '80%' }}></div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((skill, index) => (
+        {/* Expertise Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
+          {expertiseCards.map((skill, index) => (
             <SkillCard 
               key={index} 
-              icon={skill.icon} 
+              icons={skill.icons} 
               title={skill.title} 
               description={skill.description} 
             />
           ))}
         </div>
+
       </div>
     </section>
   );
