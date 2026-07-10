@@ -35,7 +35,7 @@ const projects: ProjectProps[] = [
     image: "/projects/smk-tv.png",
     technologies: ["Flutter", "Dart"],
     bottomText: "PWA Support • Low Latency HLS",
-    liveDemoLink: "/smk-tv"
+    liveDemoLink: "https://smktv.workofsoumik.com/"
   },
   {
     title: "PrimePay",

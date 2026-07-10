@@ -26,10 +26,10 @@ const App = () => (
         <BrowserRouter basename={import.meta.env.BASE_URL}>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/smk-tv" element={<SmkTv />} />
+            {/*<Route path="/blog" element={<Blog />} />*/}
+            {/*<Route path="/blog/:slug" element={<BlogPost />} />*/}
+            {/*<Route path="/admin" element={<Admin />} />*/}
+            {/*<Route path="/smk-tv" element={<SmkTv />} />*/}
             <Route path="/notification-console" element={<NotificationConsole />} />
             <Route path="/bhakti365" element={<Bhakti365 />} />
             <Route path="/bhakti365/privacy-policy" element={<Bhakti365PrivacyPolicy />} />

@@ -156,9 +156,9 @@ const Footer: React.FC = () => {
             <div className="space-y-4 pt-2">
               <h3 className="text-sm font-bold text-white uppercase tracking-widest">Latest Work</h3>
               <ul className="space-y-2.5 text-sm text-neutral-400">
-                <li><a href="/bhakti365" className="hover:text-mobile-primary transition-colors">Bhakti365 Devotional</a></li>
-                <li><a href="/smk-tv" className="hover:text-mobile-primary transition-colors">SMK TV Streaming</a></li>
-                <li><a href="/notification-console" className="hover:text-mobile-primary transition-colors">Notification Console</a></li>
+                <li><a href="https://bhakti365.workofsoumik.com/" target={"_blank"} className="hover:text-mobile-primary transition-colors">Bhakti365 Devotional</a></li>
+                <li><a href="https://smktv.workofsoumik.com/" target={"_blank"} className="hover:text-mobile-primary transition-colors">SMK TV Streaming</a></li>
+                <li><a href="/notification-console" target={"_blank"} className="hover:text-mobile-primary transition-colors">Notification Console</a></li>
               </ul>
             </div>
           </div>
