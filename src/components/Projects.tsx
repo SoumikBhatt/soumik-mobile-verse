@@ -43,7 +43,8 @@ const projects: ProjectProps[] = [
     description: "A comprehensive internet banking app built with Flutter. Features include Fund Transfer, Bills Pay, MFS, and Cheque Management.",
     image: "/projects/primepay.jpeg",
     technologies: ["Flutter", "Dart"],
-    bottomText: "Fintech"
+    bottomText: "Fintech",
+    playStoreLink: "https://play.google.com/store/apps/details?id=bd.primebank.primepay"
   },
   {
     title: "Sentra PTT",
@@ -116,7 +117,7 @@ const renderProjectSplash = (title: string, logo: string) => {
       return (
         <div className="w-full h-full bg-gradient-to-br from-blue-700 via-blue-600 to-indigo-800 flex flex-col items-center justify-center text-white relative p-4">
           {/* <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center border shadow-inner"> */}
-            <img src="/projects/bdjobs.png" alt="Bdjobs" className="w-10 h-10 object-contain rounded-md" />
+          <img src="/projects/bdjobs.png" alt="Bdjobs" className="w-10 h-10 object-contain rounded-md" />
           {/* </div> */}
           <span className="text-[11px] font-black tracking-widest uppercase mt-4 text-white">Bdjobs</span>
         </div>
@@ -125,7 +126,7 @@ const renderProjectSplash = (title: string, logo: string) => {
       return (
         <div className="w-full h-full bg-gradient-to-br from-emerald-600 via-green-600 to-emerald-800 flex flex-col items-center justify-center text-white relative p-4">
           {/* <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center border shadow-inner"> */}
-            <img src="/projects/patientAid.png" alt="Patient Aid" className="w-10 h-10 object-contain rounded-md" />
+          <img src="/projects/patientAid.png" alt="Patient Aid" className="w-10 h-10 object-contain rounded-md" />
           {/* </div> */}
           <span className="text-[11px] font-black tracking-widest uppercase mt-4 text-white">Patient Aid</span>
         </div>
@@ -153,7 +154,7 @@ const ProjectCard: React.FC<ProjectProps> = ({
 }) => {
   return (
     <Card className="border border-border/40 bg-card overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 rounded-3xl flex flex-col sm:flex-row h-full">
-      
+
       {/* Left Column: Content, tech stack and actions */}
       <div className="sm:w-1/2 p-6 sm:p-8 flex flex-col justify-between space-y-4">
         <div className="space-y-2">
@@ -161,15 +162,15 @@ const ProjectCard: React.FC<ProjectProps> = ({
             <h3 className="text-2xl font-bold tracking-tight text-foreground">{title}</h3>
             <p className="text-xs font-semibold text-mobile-primary tracking-wide uppercase">{subtitle}</p>
           </div>
-          
+
           <p className="text-sm text-muted-foreground leading-relaxed font-normal">{description}</p>
-          
+
           {/* Tech Badges */}
           <div className="flex flex-wrap gap-1.5 pt-2">
             {technologies.map((tech, index) => (
-              <Badge 
-                key={index} 
-                variant="outline" 
+              <Badge
+                key={index}
+                variant="outline"
                 className="text-[10px] sm:text-xs font-semibold border-border/60 text-foreground/80 px-2 py-0.5 rounded-md"
               >
                 {tech}
@@ -235,7 +236,7 @@ const ProjectCard: React.FC<ProjectProps> = ({
         <div className="relative w-[120px] sm:w-[135px] h-[240px] sm:h-[270px] rounded-[24px] sm:rounded-[28px] border-[4px] border-black/90 dark:border-neutral-800/90 overflow-hidden shadow-2xl z-10 transition-transform duration-500 hover:scale-105 hover:rotate-1">
           {/* Subtle phone screen glossy overlay */}
           <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/5 to-white/10 z-10 pointer-events-none"></div>
-          
+
           {/* Centered Splash Screen Mockup */}
           {renderProjectSplash(title, image)}
         </div>
@@ -249,7 +250,7 @@ const Projects: React.FC = () => {
   return (
     <section id="projects" className="py-24 bg-card/20 border-b border-border/20">
       <div className="container mx-auto px-4">
-        
+
         {/* Section Heading */}
         <div className="text-center mb-16 space-y-4">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-foreground">

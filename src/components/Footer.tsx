@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const formData = new FormData(e.target as HTMLFormElement);
     const submission = {
       name: formData.get('name') as string,
@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
           description: "Thanks for reaching out! I'll get back to you soon.",
         });
       }
-      
+
       (e.target as HTMLFormElement).reset();
     } catch (error: any) {
       console.error('Submission error:', error);
@@ -86,10 +86,10 @@ const Footer: React.FC = () => {
       <div className="absolute bottom-0 right-0 w-80 h-80 bg-mobile-primary/2 rounded-full blur-[100px] pointer-events-none -z-10"></div>
 
       <div className="container mx-auto px-4">
-        
+
         {/* Main Columns Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 pb-16 border-b border-neutral-800/40">
-          
+
           {/* Column 1: Bio and Socials (4 columns) */}
           <div className="lg:col-span-4 space-y-6">
             <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ const Footer: React.FC = () => {
               </div>
               <span className="font-extrabold text-lg text-white tracking-tight">Soumik Bhattacharjee</span>
             </div>
-            
+
             <p className="text-sm text-neutral-400 font-normal leading-relaxed">
               Senior Software Engineer specializing in Android and Flutter. Designing and building high-performance mobile applications with elegant design and architectural excellence.
             </p>
@@ -158,7 +158,7 @@ const Footer: React.FC = () => {
               <ul className="space-y-2.5 text-sm text-neutral-400">
                 <li><a href="https://bhakti365.workofsoumik.com/" target={"_blank"} className="hover:text-mobile-primary transition-colors">Bhakti365 Devotional</a></li>
                 <li><a href="https://smktv.workofsoumik.com/" target={"_blank"} className="hover:text-mobile-primary transition-colors">SMK TV Streaming</a></li>
-                <li><a href="/notification-console" target={"_blank"} className="hover:text-mobile-primary transition-colors">Notification Console</a></li>
+                {/* <li><a href="/notification-console" target={"_blank"} className="hover:text-mobile-primary transition-colors">Notification Console</a></li> */}
               </ul>
             </div>
           </div>
@@ -168,42 +168,42 @@ const Footer: React.FC = () => {
             <h3 className="text-sm font-bold text-white uppercase tracking-widest">Contact Me</h3>
             <form onSubmit={handleSubmit} className="space-y-3.5">
               <div className="grid grid-cols-2 gap-3.5">
-                <Input 
-                  name="name" 
-                  placeholder="Your Name" 
-                  required 
+                <Input
+                  name="name"
+                  placeholder="Your Name"
+                  required
                   disabled={isSubmitting}
                   className="bg-neutral-900 border-neutral-800 text-white placeholder-neutral-500 rounded-xl focus-visible:ring-mobile-primary focus-visible:border-mobile-primary text-xs sm:text-sm h-10 px-3.5"
                 />
-                <Input 
-                  name="email" 
-                  type="email" 
-                  placeholder="Your Email" 
-                  required 
+                <Input
+                  name="email"
+                  type="email"
+                  placeholder="Your Email"
+                  required
                   disabled={isSubmitting}
                   className="bg-neutral-900 border-neutral-800 text-white placeholder-neutral-500 rounded-xl focus-visible:ring-mobile-primary focus-visible:border-mobile-primary text-xs sm:text-sm h-10 px-3.5"
                 />
               </div>
-              
-              <Input 
-                name="subject" 
-                placeholder="Subject / Representation" 
-                required 
+
+              <Input
+                name="subject"
+                placeholder="Subject / Representation"
+                required
                 disabled={isSubmitting}
                 className="bg-neutral-900 border-neutral-800 text-white placeholder-neutral-500 rounded-xl focus-visible:ring-mobile-primary focus-visible:border-mobile-primary text-xs sm:text-sm h-10 px-3.5"
               />
-              
-              <Textarea 
-                name="message" 
-                placeholder="Your Message" 
-                rows={4} 
-                required 
+
+              <Textarea
+                name="message"
+                placeholder="Your Message"
+                rows={4}
+                required
                 disabled={isSubmitting}
                 className="bg-neutral-900 border-neutral-800 text-white placeholder-neutral-500 rounded-xl focus-visible:ring-mobile-primary focus-visible:border-mobile-primary text-xs sm:text-sm p-3.5 resize-none"
               />
-              
-              <Button 
-                type="submit" 
+
+              <Button
+                type="submit"
                 className="w-full bg-mobile-primary hover:bg-mobile-secondary text-black hover:text-white font-bold transition-all duration-300 rounded-xl h-10 text-xs sm:text-sm"
                 disabled={isSubmitting}
               >
